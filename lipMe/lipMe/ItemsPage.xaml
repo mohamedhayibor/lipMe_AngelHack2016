@@ -1,0 +1,125 @@
+﻿<Page
+    x:Class="lipMe.ItemsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:lipMe"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interop="using:Windows.UI.Xaml.Interop"
+    mc:Ignorable="d"
+    >
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="57.333"/>
+            <RowDefinition Height="7"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="1" Source="Assets/Logo.png" Margin="0, 5, 0, 5" HorizontalAlignment="Center"/>
+
+            <Button x:Name="CameraButton" Background="Transparent" Grid.Column="0" HorizontalAlignment="Left" Click="CameraButton_Click">
+                <SymbolIcon Symbol="Camera" Foreground="Gray" Margin="10, 0, 0, 0"/>
+            </Button>
+
+            <Button x:Name="FilterButton" Background="Transparent" Grid.Column="2" HorizontalAlignment="Right" Click="FilterButton_Click" >
+                <SymbolIcon x:Name="FilterSymbolIcon" Symbol="Filter" Foreground="Gray" Margin="0, 0, 10, 0"/>
+            </Button>
+        </Grid>
+
+
+        <Rectangle x:Name="DividerRectangle" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="LightCoral"/>
+
+        
+        <Grid x:Name="FilterPanel" Grid.Row="2" Visibility="Collapsed" BorderBrush="LightCoral" BorderThickness="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <Button x:Name="BrightButton" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Background="Transparent" Foreground="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4" Click="BrightButton_Click" >
+                <SymbolIcon Symbol="Add" />
+            </Button>
+
+            <Button x:Name="DimButton" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Background="Transparent" Foreground="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4" Click="DimButton_Click" >
+                <SymbolIcon Symbol="Remove" />
+            </Button>
+
+            <Slider x:Name="RedSlider" Grid.Column="1" Grid.Row="0" Foreground="LightCoral" Background="Gray" Minimum="0" Maximum="255" ValueChanged="RedSlider_ValueChanged"/>
+            <Slider x:Name="GreenSlider" Grid.Column="1" Grid.Row="1" Foreground="LightBlue" Background="Gray" Minimum="0" Maximum="255" ValueChanged="GreenSlider_ValueChanged" />
+            <Slider x:Name="BlueSlider" Grid.Column="1" Grid.Row="2" Foreground="LightGreen" Background="Gray" Minimum="0" Maximum="255" ValueChanged="BlueSlider_ValueChanged" />
+
+            <ComboBox x:Name="ItemTypeComboBox" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedIndex="0" HorizontalContentAlignment="Center" Margin="0, 0, 0, 5" SelectionChanged="ItemTypeComboBox_SelectionChanged" >
+                <ComboBoxItem Content="All" HorizontalAlignment="Stretch"/>
+                <ComboBoxItem Content="Lipstick" HorizontalAlignment="Stretch"/>
+                <ComboBoxItem Content="Eyeshadow" HorizontalAlignment="Stretch"/>
+                <ComboBoxItem Content="Nail Polish" HorizontalAlignment="Stretch"/>
+            </ComboBox>
+            
+        </Grid>
+        
+        <ListView x:Name="ProductsListView" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="None" ItemClick="ProductsListView_ItemClick" IsItemClickEnabled="True">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch" Height="Auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        
+                        
+                        <Rectangle Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Fill="{Binding Color}"></Rectangle>
+
+                        <Image Grid.Row="0" Grid.Column="1" Source="{Binding ImageUrl}" Margin="5"/>
+
+                        <Grid Grid.Row="0" Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            
+                            <TextBlock Grid.Row="0" Text="{Binding Name}" FontSize="24" Foreground="{Binding Color}"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Company}" Margin="10, 0, 0, 0" Foreground="{Binding Color}"/>
+                            <TextBlock Grid.Row="2" Text="{Binding Type}" Margin="10, 0, 0, 0" Foreground="{Binding Color}"/>
+                            <TextBlock Grid.Row="3" Text="{Binding Price}" VerticalAlignment="Bottom" FontSize="48" Margin="10, 10, 0, 0" HorizontalAlignment="Right" Foreground="{Binding Color}"/>
+                        </Grid>
+                        
+                        
+
+                    </Grid>
+                    
+                    
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            
+        </ListView>
+        
+    </Grid> 
+</Page>
+
